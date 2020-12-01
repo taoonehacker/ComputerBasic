@@ -3,6 +3,7 @@ import unittest
 from computer_principle.DoubleLinkedList import DoubleLinkedList
 from computer_principle.Node import Node
 from computer_principle.cache.FIFOCache import FIFOCache
+from computer_principle.cache.LFUCache import LFUCache
 from computer_principle.cache.LRUCache import LRUCache
 
 
@@ -79,6 +80,17 @@ class DoubleLinkedListTestCase(unittest.TestCase):
         self.assertEqual(lru_cache.get(1), 1)
         lru_cache.set(4, 4)
         self.assertEqual(lru_cache.get(3), -1)
+
+    def test_lfu_cache_test(self):
+        lfu_cache = LFUCache(2)
+        lfu_cache.set(1, 1)
+        lfu_cache.set(2, 2)
+
+        self.assertEqual(lfu_cache.get(1), 1)
+        self.assertEqual(lfu_cache.get(1), 1)
+
+        lfu_cache.set(3, 3)
+        self.assertEqual(lfu_cache.get(2), -1)
 
 
 if __name__ == '__main__':
